@@ -1,21 +1,28 @@
-apiVersion: apps/v1
-kind: Deployment
+# Specifies the API version and kind of Kubernetes resource
+apiVersion: apps/v1  # The API version used for the Deployment resource
+kind: Deployment     # The type of Kubernetes resource (Deployment)
+
+# Metadata provides basic information about the Deployment
 metadata:
-  name: sample-python-app
-  labels:
-    app: sample-python-app
+  name: sample-python-app  # The name of the Deployment resource
+  labels:                  # Labels are key-value pairs used for identification and selection
+    app: sample-python-app # Label to identify the application
+
+# Specification of the Deployment
 spec:
-  replicas: 2
-  selector:
+  replicas: 2              # Number of pod replicas to maintain
+  selector:                # Defines how to identify pods managed by this Deployment
     matchLabels:
-      app: sample-python-app
+      app: sample-python-app # Matches pods with this label
+
+  # Template defines the specification of the pods created by the Deployment
   template:
-    metadata:
-      labels:
-        app: sample-python-app
+    metadata:              # Metadata for the pod template
+      labels:              # Labels to attach to the pods
+        app: sample-python-app # Ensures pods are matched by the selector above
     spec:
-      containers:
-        - name: nginx
-          image: nginx:1.14.2
-          ports:
-          - containerPort: 80
+      containers:          # List of containers for the pod
+        - name: python-app # Name of the container
+          image: dhanikaa/python-sample-app-demo:v1 # Docker image for the container
+          ports:           # Ports to expose from the container
+          - containerPort: 8000 # Exposes port 8000 inside the container
