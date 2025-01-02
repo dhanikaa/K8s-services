@@ -68,116 +68,94 @@ Follow these steps to set up and run the Kubernetes services demo:
 
 ---
 
-### 1. Clone the Repository
-
-Start by cloning this repository to your local machine:
+## 1. Clone the Repository  
+Clone the repository to your local machine:  
 ```bash
 git clone https://github.com/your-username/kubernetes-services-demo.git
 cd kubernetes-services-demo
+```  
 
-### 2. Build the Docker Image
-
-Build the Docker image for the Python application:
+## 2. Build the Docker Image  
+Build the Docker image for the Python application:  
 ```bash
 docker build -t your-username/python-sample-app:v1 .
+```  
 
-### 3. Start Minikube
-
-Ensure Minikube is installed and running, then start a local Kubernetes cluster:
+## 3. Start Minikube  
+Start a local Kubernetes cluster:  
 ```bash
 minikube start
-
-Check the status of Minikube to confirm it is running:
-```bash
 minikube status
+```  
 
-### 4. Deploy the Application
-
-Apply the deployment configuration to create the pods:
+## 4. Deploy the Application  
+Apply the deployment configuration:  
 ```bash
 kubectl apply -f deployment.yml
-
-Verify the deployment:
-```bash
 kubectl get deploy
+```  
 
-### 5. Create the Service
-
-Apply the service configuration to expose the application:
+## 5. Expose the Application  
+Apply the service configuration to expose the app:  
 ```bash
 kubectl apply -f service.yml
-
-Check the service details:
-```bash
 kubectl get svc
+```  
 
-### 6. Access the Application
-
-Find the service’s IP and port using the kubectl get svc command.
-
-Test the application using a web browser or curl:
+## 6. Access the Application  
+Use the service’s IP and port:  
 ```bash
 curl -L http://<Service-IP>:<Exposed-Port>/demo
+```  
 
 ---
 
-## Notes
-	•	You can modify the service.yml file to change the service type (ClusterIP, NodePort, LoadBalancer) as per your requirements.
-	•	This demo uses the NodePort service type for simplicity.
+## Notes  
+- Modify `service.yml` to change the service type (e.g., ClusterIP, NodePort, LoadBalancer).  
+- This demo uses the **NodePort** type for simplicity.  
 
 ---
 
-## Deployment Configuration
+### Deployment Configuration (`deployment.yml`)  
+Defines application deployment:  
+- **apiVersion** and **kind**: Resource type (Deployment).  
+- **spec.replicas**: Number of pod replicas.  
+- **template**: Pod configuration (containers, images, ports).  
 
-### deployment.yml
-
-The deployment.yml file is used to define how your application is deployed in Kubernetes. Below are the key sections:
-	•	apiVersion and kind: Defines the type of resource (Deployment).
-	•	metadata: Specifies the name and labels for the deployment.
-	•	spec.replicas: Defines the number of pod replicas.
-	•	template: Describes the pod configuration, including containers, images, and ports.
-
----
-
-## Service Configuration
-
-### service.yml
-
-The service.yml file is used to expose the application to the network. Below are the key sections:
-	•	apiVersion and kind: Defines the type of resource (Service).
-	•	metadata: Specifies the name of the service.
-	•	spec.type: Defines the type of service (NodePort).
-	•	spec.selector: Matches pods based on labels.
-	•	spec.ports: Maps the service port to the container port.
+### Service Configuration (`service.yml`)  
+Exposes the application:  
+- **apiVersion** and **kind**: Resource type (Service).  
+- **spec.type**: Service type (NodePort).  
+- **spec.selector**: Matches pods based on labels.  
+- **spec.ports**: Maps service port to container port.  
 
 ---
 
-## Dockerfile
-
-### Purpose
-
-The Dockerfile is used to containerize the application. Below are the key steps:
-	1.	Base Image: Starts with the ubuntu image.
-	2.	Environment Setup: Installs Python and dependencies.
-	3.	Application Files: Copies the app files into the container.
-	4.	Expose Port: Opens port 8000 for the application.
-	5.	Run Command: Defines how to start the app using manage.py.
+## Dockerfile Overview  
+Steps to containerize the app:  
+1. **Base Image**: Ubuntu with Python.  
+2. **Environment Setup**: Installs dependencies.  
+3. **App Files**: Copies files into the container.  
+4. **Expose Port**: Opens port 8000.  
+5. **Run Command**: Starts the app with `manage.py`.  
 
 ---
 
-## Commands Overview
+## Key Commands  
 
-Minikube Management
-	•	minikube start: Starts a local Kubernetes cluster.
-	•	minikube status: Checks the status of the Minikube cluster.
+### Minikube Management  
+- `minikube start`: Start a local cluster.  
+- `minikube status`: Check cluster status.  
 
-Deployment Management
-	•	kubectl apply -f deployment.yml: Deploys the application based on the configuration file.
-	•	kubectl get deploy: Displays information about the deployment.
+### Deployment Management  
+- `kubectl apply -f deployment.yml`: Deploy the app.  
+- `kubectl get deploy`: View deployment details.  
 
-Service Management
-	•	kubectl apply -f service.yml: Creates a service to expose the application.
-	•	kubectl get svc: Retrieves details of the service, including its IP and port.
+### Service Management  
+- `kubectl apply -f service.yml`: Create a service.  
+- `kubectl get svc`: View service details.  
 
-Testing the Application
-	•	Use the curl command or a web browser to access the application at the service’s exposed IP and port.
+### Testing  
+Access the app via `curl` or a web browser using the service’s IP and port.  
+
+---  
