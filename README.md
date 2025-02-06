@@ -95,8 +95,8 @@ This routes all traffic from `demo.example.com` to the `demo-service` running on
 ### 1. Clone the Repository  
 Clone the repository to your local machine:  
 ```bash
-git clone https://github.com/your-username/kubernetes-services-demo.git
-cd kubernetes-services-demo
+git clone https://github.com/dhanikaa/K8s-services.git
+cd K8s-services
 ```  
 
 ### 2. Build the Docker Image  
