@@ -7,10 +7,18 @@ spec:
   - host: test.com  # Specifies that this Ingress applies to requests made to "test.com".
     http:
       paths:
-      - path: /  # Routes all traffic from "test.com/" to the specified backend service.
-        pathType: Prefix  # Ensures all paths that start with "/" are matched.
+      - path: /first  # Routes requests with the path "/first" to the specified backend service.
+        pathType: Prefix  # Matches any request with a URL path that starts with "/first".
         backend:
           service:
-            name: http/svc  # The name of the backend service that will receive the traffic.
+            name: bark/svc  # The name of the backend service that will handle the traffic.
+            port:
+              number: 80  # The port on which the backend service is running.
+
+      - path: /second  # Routes requests with the path "/second" to the specified backend service.
+        pathType: Prefix  # Matches any request with a URL path that starts with "/second".
+        backend:
+          service:
+            name: meow/svc  # The name of the backend service that will handle the traffic.
             port:
               number: 80  # The port on which the backend service is running.
