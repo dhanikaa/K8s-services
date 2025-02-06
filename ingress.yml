@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1  # Specifies the API version for the Ingress resource.
+kind: Ingress  # Defines this resource as an Ingress, which manages external access to services.
+metadata:
+  name: ingress-no-auth  # The name of the Ingress resource.
+spec:
+  rules:  # Defines routing rules for HTTP traffic.
+  - host: test.com  # Specifies that this Ingress applies to requests made to "test.com".
+    http:
+      paths:
+      - path: /  # Routes all traffic from "test.com/" to the specified backend service.
+        pathType: Prefix  # Ensures all paths that start with "/" are matched.
+        backend:
+          service:
+            name: http/svc  # The name of the backend service that will receive the traffic.
+            port:
+              number: 80  # The port on which the backend service is running.
